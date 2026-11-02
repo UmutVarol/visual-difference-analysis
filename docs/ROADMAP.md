@@ -48,6 +48,7 @@ Image Processing Project/
 ├── app.py            # Streamlit arayüzü (yükle → karşılaştır → göster)
 ├── visual_diff.py    # Görüntü işleme fonksiyonları (OpenCV + NumPy)
 ├── samples/          # Denemek için örnek önce/sonra görüntüleri
+│   └── make_samples.py   # örnek çifti üreten yardımcı betik (uygulamanın parçası değil)
 ├── requirements.txt
 ├── README.md
 └── docs/ROADMAP.md
@@ -124,7 +125,12 @@ Her faz sonunda: çalışan kod → ne yaptığımızın ve kavramların açıkl
 - [x] **Faz 0 — Ortam kurulumu** — 2026-11-02: `git init` (main), `.gitignore`, `.venv` (Python 3.13.2),
   `requirements.txt` (opencv-python 4.14.0.94, numpy 2.5.4, streamlit 1.66.1), geçici `app.py`.
   Doğrulandı: importlar çalışıyor, Streamlit sayfası localhost:8501'de açılıyor. İlk commit atıldı.
-- [ ] Faz 1 — Görüntüleri okuma ve boyut kontrolü
+- [x] **Faz 1 — Görüntüleri okuma ve boyut kontrolü** — 2026-11-02: `visual_diff.py` →
+  `load_image(bytes)` (`np.frombuffer` + `cv2.imdecode(IMREAD_COLOR)`, her zaman 3 kanal BGR uint8;
+  boş/bozuk dosyada ValueError) ve `check_same_size`. `samples/before.png` / `after.png` (1280x800)
+  5 değişiklik içeriyor: NEW rozeti Revenue'dan kalktı, Orders'a eklendi; Revenue 48,920→52,340;
+  Export mavi→yeşil; "Cancelled" koyu kırmızı→koyu yeşil (gri değer ikisinde de 59 — Faz 2 tuzağı).
+  Doğrulandı: değişmeyen kartlar önce/sonra birebir aynı (`np.array_equal`). Commit atıldı.
 - [ ] Faz 2 — Piksel farkı ve eşikleme
 - [ ] Faz 3 — Morfoloji, kontur ve bounding box
 - [ ] Faz 4 — Streamlit arayüzü
