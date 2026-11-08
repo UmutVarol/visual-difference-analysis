@@ -131,7 +131,10 @@ Her faz sonunda: çalışan kod → ne yaptığımızın ve kavramların açıkl
   5 değişiklik içeriyor: NEW rozeti Revenue'dan kalktı, Orders'a eklendi; Revenue 48,920→52,340;
   Export mavi→yeşil; "Cancelled" koyu kırmızı→koyu yeşil (gri değer ikisinde de 59 — Faz 2 tuzağı).
   Doğrulandı: değişmeyen kartlar önce/sonra birebir aynı (`np.array_equal`). Commit atıldı.
-- [ ] Faz 2 — Piksel farkı ve eşikleme
+- [x] **Faz 2 — Piksel farkı ve eşikleme** — 2026-11-08: `difference_map` (`cv2.absdiff` + 3 kanalın
+  en büyüğü → (H, W) uint8) ve `threshold_mask` (`cv2.threshold`, `DIFF_THRESHOLD = 10`, BINARY → 0/255).
+  Örnek çiftte 5 değişikliğin 5'i de yakalandı, bu bölgelerin dışında 0 piksel işaretlendi (10.477 piksel).
+  Gri tonlama "Cancelled" değişikliğinde 0 piksel buldu, 3 kanal 1.048 piksel. Süre ~12 ms.
 - [ ] Faz 3 — Morfoloji, kontur ve bounding box
 - [ ] Faz 4 — Streamlit arayüzü
 - [ ] Faz 5 — Son kontrol ve teslim

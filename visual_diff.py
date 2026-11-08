@@ -3,6 +3,10 @@
 import cv2
 import numpy as np
 
+# Pixels whose largest channel difference is above this value count as changed.
+# Kept low because unchanged pixels in screenshots taken under the same conditions are identical.
+DIFF_THRESHOLD = 10
+
 
 def load_image(data: bytes) -> np.ndarray:
     """Decode an image file's bytes into a BGR array of shape (height, width, 3), dtype uint8."""
@@ -25,3 +29,19 @@ def check_same_size(before: np.ndarray, after: np.ndarray) -> None:
             f"Images must have the same size: earlier version is {before_w}x{before_h}, "
             f"updated version is {after_w}x{after_h}."
         )
+
+
+def difference_map(before: np.ndarray, after: np.ndarray) -> np.ndarray:
+    """Return a (height, width) uint8 map of how much each pixel changed (0 = identical).
+
+    The difference is taken per channel and the largest of B, G, R is kept, because converting
+    to grayscale first can hide color changes (e.g. dark red and dark green share gray value 59).
+    """
+    diff = cv2.absdiff(before, after)
+    return diff.max(axis=2)
+
+
+def threshold_mask(diff: np.ndarray, threshold: int = DIFF_THRESHOLD) -> np.ndarray:
+    """Turn a difference map into a binary mask: 255 where the pixel changed, 0 elsewhere."""
+    _, mask = cv2.threshold(diff, threshold, 255, cv2.THRESH_BINARY)
+    return mask
