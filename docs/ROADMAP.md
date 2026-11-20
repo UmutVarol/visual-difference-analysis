@@ -135,7 +135,12 @@ Her faz sonunda: çalışan kod → ne yaptığımızın ve kavramların açıkl
   en büyüğü → (H, W) uint8) ve `threshold_mask` (`cv2.threshold`, `DIFF_THRESHOLD = 10`, BINARY → 0/255).
   Örnek çiftte 5 değişikliğin 5'i de yakalandı, bu bölgelerin dışında 0 piksel işaretlendi (10.477 piksel).
   Gri tonlama "Cancelled" değişikliğinde 0 piksel buldu, 3 kanal 1.048 piksel. Süre ~12 ms.
-- [ ] Faz 3 — Morfoloji, kontur ve bounding box
+- [x] **Faz 3 — Morfoloji, kontur ve bounding box** — 2026-11-20: `merge_regions` (`MORPH_CLOSE`,
+  25x25 dikdörtgen kernel — genişletmeye göre kutular değişikliğe sıkı oturuyor; 25 ile Revenue sayısı
+  tek kutu), `find_boxes` (`findContours` RETR_EXTERNAL + `boundingRect`, yukarıdan aşağı sıralı),
+  `detect_differences` (tüm zincir), `draw_boxes` (kırmızı, 2 px). Örnek çiftte 5 değişiklik → 5 kutu,
+  aynı resimde 0 kutu, ~11 ms. Not: yerel klasör kaybolduğu için repo 2026-11-20'de
+  `~/Desktop/ÜNİ/4.Sınıf/Ceng376-Image Processing/visual-difference-analysis` altına yeniden indirildi.
 - [ ] Faz 4 — Streamlit arayüzü
 - [ ] Faz 5 — Son kontrol ve teslim
 

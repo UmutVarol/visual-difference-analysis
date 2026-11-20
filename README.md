@@ -93,7 +93,7 @@ Windows'ta `.venv/bin/` yerine `.venv\Scripts\` kullanın.
 - [x] Ortam kurulumu
 - [x] Görüntüleri okuma ve boyut kontrolü
 - [x] Piksel farkı ve eşikleme
-- [ ] Morfoloji, kontur ve bounding box
+- [x] Morfoloji, kontur ve bounding box
 - [ ] Streamlit arayüzü
 - [ ] Son kontrol
 
@@ -178,6 +178,6 @@ To regenerate the sample image pair: `.venv/bin/python samples/make_samples.py`
 - [x] Environment setup
 - [x] Image loading and size check
 - [x] Pixel differencing and thresholding
-- [ ] Morphology, contours and bounding boxes
+- [x] Morphology, contours and bounding boxes
 - [ ] Streamlit interface
 - [ ] Final review
